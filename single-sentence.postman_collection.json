@@ -1,0 +1,575 @@
+{
+	"info": {
+		"_postman_id": "123702a0-8465-4b1d-bb1d-183a05496186",
+		"name": "single-sentence",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29624773"
+	},
+	"item": [
+		{
+			"name": "注册和登录",
+			"item": [
+				{
+					"name": "RegisterUserHandler",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"test3\",\r\n    \"password\":\"ncuhome\",\r\n    \"nickName\":\"admintest\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}register"
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUserHandler",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"xyq\",\r\n    \"password\":\"wuxin174631\"\r\n\r\n}"
+						},
+						"url": "{{url}}login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户操作",
+			"item": [
+				{
+					"name": "ShowUserInfoHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}user"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserInfoHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"saaa\",\r\n    \"nickName\":\"xyq777\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}user"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test2\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{url}}user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "句子操作",
+			"item": [
+				{
+					"name": "PostUserSentenceHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"xyq777\":\"测试语句3564\",\r\n    \"type\":\"a\",\r\n    \"from\":\"网络\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}user/sentences"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserSentenceHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}user/sentences/103"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserSentenceHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"xyq777\":\"测试语句2\",\r\n    \"type\":\"a\",\r\n    \"from\":\"网络\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/sentences/103",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"sentences",
+								"103"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSentence",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserSentenceHandler",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"test\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{url}}user/sentences"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "管理员操作",
+			"item": [
+				{
+					"name": "DeleteSentence",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"admintest\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{url}}admin/7"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const request1 = {\r",
+									"    url: 'http://localhost:8080/login',\r",
+									"    method:'post',\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({ \r",
+									"        \"username\": \"admintest\" ,\r",
+									"        \"password\":\"ncuhome\"\r",
+									"        }) \r",
+									"    }\r",
+									"};\r",
+									"pm.sendRequest(request1, (error, response) => {\r",
+									"    if (error) {\r",
+									"        console.error(error);\r",
+									"    } else {\r",
+									"        \r",
+									"pm.collectionVariables.set(\"token\", JSON.parse(response.stream.toString()).token);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{url}}admin/sentences/104"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080/",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

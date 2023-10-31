@@ -20,7 +20,7 @@ type config struct {
 var Config config
 
 func init() {
-	configData, err := os.Open("./config/config.json")
+	configData, err := os.Open("../../config/config.json")
 	if err != nil {
 		log.Panicln(err)
 		return
